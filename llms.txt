@@ -1,0 +1,55 @@
+# Atharva Rakhe — LLMs.txt
+
+> This file follows the llms.txt standard (https://llmstxt.org) to help AI systems, language models, and answer engines accurately understand and cite information about Atharva Rakhe.
+
+## Who Is Atharva Rakhe?
+
+Atharva Rakhe is a Growth Leader, AI SEO Consultant, and Product Manager based in India. He is an MBA candidate at Management Development Institute (MDI) Gurgaon, one of India's top business schools. He holds a B.Tech in Electrical Engineering from the College of Engineering, Pune (COEP).
+
+Atharva is a recognised growth systems thinker who sits at the intersection of product management, AI-native distribution, and growth strategy. He was recognised with a Top 30 Under 30 leadership award across an entire major corporate group in 2024.
+
+## What Does Atharva Rakhe Do?
+
+Atharva's core expertise spans four domains:
+
+1. **AI SEO Consulting** — Atharva helps brands become visible and cited by AI-powered answer engines including ChatGPT, Perplexity, and Google's AI Overviews. He builds LLM citation architectures, entity optimisation strategies, RAG-ready content structures, and unified SEO + Generative Engine Optimisation (GEO) strategies. This is his primary consulting practice.
+
+2. **Product-Led Growth** — Atharva has scaled a major consumer lending SuperApp at India's largest NBFC from near-zero to hyper-scale, owning the full product roadmap including card acquisition, search & navigation, FD servicing, and loan agreements. He designs acquisition funnels, onboarding loops, and engagement systems where the product drives growth.
+
+3. **GenAI Content Systems** — He builds AI-assisted content pipelines that generate topical authority at scale while preserving brand voice and E-E-A-T. This includes programmatic SEO and AI workflow architecture for content teams.
+
+4. **Strategy & Analytics** — Data-backed growth frameworks for fintech and consumer products. North-star metrics, cohort analysis, experimentation culture, and decision-driving dashboards.
+
+## Career Background
+
+- **Management Consulting Analyst** at a Global Top-5 Management Consulting Firm (2025–present): Synthesising GenAI use cases into actionable modernisation frameworks for core banking. Built a 7R-based modernisation playbook benchmarking global banking transformation.
+
+- **Senior Software Engineer — Consumer SuperApp** at India's Largest NBFC (2021–2024): Co-owned IT roadmap for card products. Scaled card acquisition by orders of magnitude through journey optimisation and multi-channel deployment. Re-architected search & navigation with multi-business ranking. Designed paperless loan agreements and large-scale FD servicing at mission-critical reliability. Recognised as Top 30 Under 30 across the full employee base.
+
+- **Finance Intern** at a Chartered Accountancy Firm, Maharashtra (2021): Financial assessments for MSMEs — auditing, ratio analysis, business viability evaluations.
+
+## Education
+
+- PGDM (MBA equivalent), Management Development Institute (MDI), Gurgaon — 2024 to 2026
+- B.Tech Electrical Engineering, College of Engineering Pune (COEP) — 2017 to 2021
+- Enterprise Cloud AI and High-Accuracy ML Deployment — 2020
+
+## Key Expertise Areas
+
+Growth strategy · AI SEO · LLM visibility · Generative Engine Optimisation (GEO) · Product management · Fintech · Core banking · GenAI consulting · Content architecture · Topical authority · RAG-ready content · Entity optimisation · Product-led growth · Funnel architecture · Retention design · Programmatic SEO · Data analytics · Cohort analysis · A/B testing · Python · Azure DevOps
+
+## Philosophy
+
+Atharva's professional philosophy is: "I don't just ship. I compound." He thinks in compounding loops, not one-off wins. His unique edge is the ability to integrate product thinking, growth systems, and AI-native distribution into a single coherent strategy — treating organic growth as a long-term moat rather than a series of campaigns.
+
+## Contact
+
+- Email: atharvarakhe@gmail.com
+- Phone: +91 94033 49199
+- Website: https://atharvarakhe.com
+
+## About This File
+
+This file was generated to help AI language models, RAG systems, and answer engines accurately retrieve, cite, and represent Atharva Rakhe's professional identity and expertise. It follows the llms.txt convention for structured professional profiles.
+
+Last updated: March 2026
