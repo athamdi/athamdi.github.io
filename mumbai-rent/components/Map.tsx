@@ -26,10 +26,12 @@ interface MapProps {
   onPinCountChange?: (count: number) => void;
 }
 
-interface Cluster {
+interface ClusterSummary {
   id: string;
   lat: number;
   lng: number;
+  count: number;
+  sample: Pin;
   pins: Pin[];
 }
 
@@ -43,11 +45,14 @@ function matchesFilters(pin: Pin, filters: Filters): boolean {
   return true;
 }
 
-function useClusters(pins: Pin[], zoom: number): { singles: Pin[]; clusters: Cluster[] } {
+function useClusters(
+  pins: Pin[],
+  zoom: number
+): { singles: Pin[]; clusters: ClusterSummary[] } {
   return useMemo(() => {
     if (zoom >= 14) return { singles: pins, clusters: [] };
 
-    const cellSize = zoom <= 10 ? 0.02 : 0.012;
+    const cellSize = zoom <= 10 ? 0.024 : zoom <= 12 ? 0.016 : 0.01;
     const buckets = new Map<string, Pin[]>();
 
     for (const pin of pins) {
@@ -57,17 +62,24 @@ function useClusters(pins: Pin[], zoom: number): { singles: Pin[]; clusters: Clu
       buckets.set(key, bucket);
     }
 
-    const clusters: Cluster[] = [];
+    const clusters: ClusterSummary[] = [];
     const singles: Pin[] = [];
 
     for (const [id, bucket] of buckets.entries()) {
-      if (bucket.length < 3) {
+      if (bucket.length < 4) {
         singles.push(...bucket);
         continue;
       }
       const lat = bucket.reduce((sum, item) => sum + item.lat, 0) / bucket.length;
       const lng = bucket.reduce((sum, item) => sum + item.lng, 0) / bucket.length;
-      clusters.push({ id, lat, lng, pins: bucket });
+      clusters.push({
+        id,
+        lat,
+        lng,
+        count: bucket.length,
+        sample: bucket[0],
+        pins: bucket,
+      });
     }
 
     return { singles, clusters };
@@ -91,15 +103,21 @@ function MapInner({
   const [dropOpen, setDropOpen] = useState(false);
   const [dropPoint, setDropPoint] = useState<{ lat: number; lng: number } | null>(null);
   const [activeFilters, setActiveFilters] = useState(filters);
-  const [activeCluster, setActiveCluster] = useState<Cluster | null>(null);
+  const [activeCluster, setActiveCluster] = useState<ClusterSummary | null>(null);
   const [drawnPolygon, setDrawnPolygon] = useState<google.maps.Polygon | null>(null);
   const drawingManagerRef = useRef<google.maps.drawing.DrawingManager | null>(null);
+  const [isTouch, setIsTouch] = useState(false);
 
   const filteredPins = useMemo(
     () => pins.filter((pin) => matchesFilters(pin, filters)),
     [pins, filters]
   );
   const { singles, clusters } = useClusters(filteredPins, zoom);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
 
   useEffect(() => {
     onPinCountChange?.(filteredPins.length);
@@ -148,7 +166,7 @@ function MapInner({
       manager.setMap(map);
       drawingManagerRef.current = manager;
 
-      google.maps.event.addListener(
+      const listener = google.maps.event.addListener(
         manager,
         "overlaycomplete",
         async (event: google.maps.drawing.OverlayCompleteEvent) => {
@@ -165,6 +183,10 @@ function MapInner({
           onToggleDrawMode();
         }
       );
+
+      return () => {
+        google.maps.event.removeListener(listener);
+      };
     }
   }, [map, drawnPolygon, fetchStats, filters, onToggleDrawMode]);
 
@@ -186,13 +208,13 @@ function MapInner({
   return (
     <>
       {loading && (
-        <div className="absolute left-4 top-4 z-20 rounded-full bg-surface/90 px-3 py-1 text-xs text-slate-300">
-          Loading pins...
+        <div className="absolute left-4 top-4 z-20 rounded-full bg-surface/95 px-3 py-1 text-xs text-slate-300 shadow">
+          Loading recent pins...
         </div>
       )}
       {error && (
         <div className="absolute left-4 top-4 z-20 rounded-full bg-alert-red/20 px-3 py-1 text-xs text-red-200">
-          Failed to load pins.
+          Could not load pins. Pull to retry.
         </div>
       )}
       {statsError && (
@@ -206,7 +228,7 @@ function MapInner({
           key={cluster.id}
           lat={cluster.lat}
           lng={cluster.lng}
-          count={cluster.pins.length}
+          count={cluster.count}
           onClick={() => setActiveCluster(cluster)}
         />
       ))}
@@ -222,7 +244,11 @@ function MapInner({
         >
           <div className="space-y-2">
             <div className="text-xs font-semibold text-slate-700">
-              {activeCluster.pins.length} pins in this cluster
+              {activeCluster.count} nearby pins
+            </div>
+            <div className="rounded bg-slate-100 px-2 py-1 text-xs text-slate-700">
+              Typical: {activeCluster.sample.bhk}BHK · ₹
+              {activeCluster.sample.rent.toLocaleString("en-IN")}
             </div>
             <ul className="max-h-44 space-y-1 overflow-auto text-xs text-slate-600">
               {activeCluster.pins.slice(0, 8).map((pin) => (
@@ -250,6 +276,7 @@ function MapInner({
         loading={statsLoading}
         filters={activeFilters}
         onClear={clearArea}
+        error={statsError}
       />
     </>
   );

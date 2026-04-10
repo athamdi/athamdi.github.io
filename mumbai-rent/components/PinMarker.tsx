@@ -96,7 +96,7 @@ export default function PinMarker({ pin, onReportSuccess }: PinMarkerProps) {
                 disabled={reporting}
                 className="rounded border border-alert-red px-2 py-1 text-alert-red hover:bg-red-50 disabled:opacity-60"
               >
-                {reporting ? "Reporting…" : "Report"}
+                {reporting ? "Reporting..." : "Report"}
               </button>
             </div>
             {reportError ? (
